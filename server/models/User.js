@@ -13,7 +13,7 @@ const User = (sequelize) => {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: false,
         validate: {
           notEmpty: {
             msg: 'Username is required'
@@ -42,12 +42,12 @@ const User = (sequelize) => {
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
-        defaultValue: false,
+        defaultValue: true,
       },
-      isAdmin: {
-        type: DataTypes.BOOLEAN,
+      rol: {
+        type: DataTypes.ENUM('admin','user'),
         allowNull: false,
-        defaultValue: false,
+        defaultValue: 'user',
       },
       firstLogin: {
         type: DataTypes.BOOLEAN,

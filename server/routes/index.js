@@ -21,7 +21,10 @@ router.delete('/product/:id', deleteProductHandler);
 // User routes
 
 router.post('/user', [
+  check('username', 'Nombre de usuario obligatorio.').not().isEmpty(),
+  check('password', 'El password debe tener minimo 6 caracteres.').isLength({min:6}),
   check('email', 'Correo no válido').isEmail(),
+  check('rol','Rol no válido').isIn(['admin','user']),
 ] ,postUserHandler);
 
 router.get('/user', userHandler);

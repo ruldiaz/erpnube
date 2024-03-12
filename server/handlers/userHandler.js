@@ -11,7 +11,7 @@ const postUserHandler = ('/', async (req, res)=>{
     if(!errors.isEmpty()){
       return res.status(400).json(errors);
     }
-    const { username, email, password, isAdmin } = req.body;
+    const { username, email, password, rol } = req.body;
 
     // verify if email already exists before creating one
     const existingUser = await User.findOne({where: {email: email}});
@@ -27,7 +27,7 @@ const postUserHandler = ('/', async (req, res)=>{
       username,
       email,
       password: hashedPassword,
-      isAdmin,
+      rol,
     });
 
     res.status(201).send(userCreated);
