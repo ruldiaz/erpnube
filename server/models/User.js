@@ -10,13 +10,13 @@ const User = (sequelize) => {
         primaryKey: true,
         allowNull: false,
       },
-      nickname: {
+      username: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
           notEmpty: {
-            msg: 'Nickname is required'
+            msg: 'Username is required'
           }
         }
       },
