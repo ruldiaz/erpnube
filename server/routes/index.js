@@ -2,7 +2,7 @@ const { Router } = require('express');
 // Importar todos los routers;
 const { productHandler, postProductHandler, deleteProductHandler, updateProductHandler } = require('../handlers/productHandler');
 const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler } = require('../handlers/userHandler');
-// Ejemplo: const authRouter = require('./auth.js');
+const { check } = require('express-validator');
 
 
 const router = Router();
@@ -17,9 +17,12 @@ router.put('/product/:id', updateProductHandler);
 
 router.delete('/product/:id', deleteProductHandler);
 
+
 // User routes
 
-router.post('/user', postUserHandler);
+router.post('/user', [
+  check('email', 'Correo no válido').isEmail(),
+] ,postUserHandler);
 
 router.get('/user', userHandler);
 

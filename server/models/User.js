@@ -41,7 +41,7 @@ const User = (sequelize) => {
       },
       active: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
         defaultValue: false,
       },
       isAdmin: {
@@ -51,17 +51,17 @@ const User = (sequelize) => {
       },
       firstLogin: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
         defaultValue: true,
       },
       googleImage: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: undefined,
       },
       googleId: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       }
     },
     { timestamps: false,
