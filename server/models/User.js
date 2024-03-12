@@ -30,15 +30,6 @@ const User = (sequelize) => {
           }
         }
       },
-      phoneNumber: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      role: {
-        type: DataTypes.ENUM('admin_role','user_role'),
-        allowNull: false,
-        defaultValue: 'user_role',
-      },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -48,18 +39,29 @@ const User = (sequelize) => {
           }
         }
       },
-      image: {
-        type: DataTypes.STRING,
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
-      status: {
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      firstLogin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true,
       },
-      google: {
-        type: DataTypes.BOOLEAN,
+      googleImage: {
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: false,
+        defaultValue: undefined,
+      },
+      googleId: {
+        type: DataTypes.STRING,
+        allowNull: false,
       }
     },
     { timestamps: false,
