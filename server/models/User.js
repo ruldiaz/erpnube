@@ -45,7 +45,7 @@ const User = (sequelize) => {
         defaultValue: true,
       },
       rol: {
-        type: DataTypes.ENUM('admin','user'),
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'user',
       },
