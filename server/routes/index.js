@@ -3,7 +3,7 @@ const { Router } = require('express');
 const { productHandler, postProductHandler, deleteProductHandler, updateProductHandler } = require('../handlers/productHandler');
 const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler } = require('../handlers/userHandler');
 const { check } = require('express-validator');
-
+const { validarCampos } = require('../middlewares/validations');
 
 const router = Router();
 
@@ -25,6 +25,7 @@ router.post('/user', [
   check('password', 'El password debe tener minimo 6 caracteres.').isLength({min:6}),
   check('email', 'Correo no válido').isEmail(),
   check('rol','Rol no válido').isIn(['admin','user']),
+  validarCampos
 ] ,postUserHandler);
 
 router.get('/user', userHandler);
