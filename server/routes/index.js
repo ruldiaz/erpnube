@@ -4,7 +4,8 @@ const { productHandler, postProductHandler, deleteProductHandler, updateProductH
 const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler } = require('../handlers/userHandler');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validations');
-const { Role } = require('../db');
+const { isRoleValid, emailExists } = require('../helpers/dbvalidators');
+
 
 const router = Router();
 
@@ -25,14 +26,9 @@ router.post('/user', [
   check('username', 'Nombre de usuario obligatorio.').not().isEmpty(),
   check('password', 'El password debe tener minimo 6 caracteres.').isLength({min:6}),
   check('email', 'Correo no válido').isEmail(),
+  check('email').custom(emailExists),
   //check('rol','Rol no válido').isIn(['admin','user']),
-  check('rol').custom(async (rol = '')=>{
-    const existeRol = await Role.findOne({where: {rol: rol}});
-    if(!existeRol){
-      throw new Error(`El rol ${rol} no está registrado en la db.`)
-    }
-    return true;
-  }),
+  check('rol').custom( isRoleValid ),
   validarCampos
 ] ,postUserHandler);
 

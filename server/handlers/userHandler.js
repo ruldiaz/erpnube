@@ -1,24 +1,18 @@
 const { getAllUsers } = require('../controllers/userController') ;
 const { User } = require('../db');
 const bcrypt = require('bcryptjs');
-const { validationResult } = require('express-validator');
+
+
 
 // create user handler
 const postUserHandler = ('/', async (req, res)=>{
   console.log(req.body);
   try {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-      return res.status(400).json(errors);
-    }
-    const { username, email, password, rol } = req.body;
+    
+    const { username, email, password, rol, google } = req.body;
 
-    // verify if email already exists before creating one
-    const existingUser = await User.findOne({where: {email: email}});
-    if(existingUser){
-      return res.status(400).json({error: 'Correo ya existe.'});
-    }
-
+    // verify if email already exists before creating one in helpers
+   
     // Hashing the password before saving it
     const saltRounds = bcrypt.genSaltSync();
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
@@ -28,9 +22,12 @@ const postUserHandler = ('/', async (req, res)=>{
       email,
       password: hashedPassword,
       rol,
+      google
     });
 
-    res.status(201).send(userCreated);
+    const { password: omitPassword, ...userWithoutPassword} = userCreated.toJSON(); // hide password on screen
+
+    res.status(201).send(userWithoutPassword);
 
   } catch (error) {
     res.status(500).json({error: error.message});
@@ -47,24 +44,22 @@ const userHandler = ('/', async (req, res)=>{
   }
 });
 
-// update product handler
+// update user handler
 const updateUserHandler = (async (req, res) => {
   try {
     console.log(req.body)
     const {id} = req.params;
-    const { username,  email, password, active, isAdmin, firstLogin, googleImage, googleId} = req.body;
+    const { password, google, email, ...rest } = req.body;
 
     // Hash password if updated
-    let updatedUserData = {username,  email, password, active, isAdmin, firstLogin, googleImage, googleId};
     if(password){
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
-      updatedUserData.password = hashedPassword;
+      rest.password = hashedPassword;
     }
 
-    const updatedUser = await User.update(updatedUserData,  {where: {id: id}, returning: true} );
+    const updatedUser = await User.update(rest,  {where: {id: id}, returning: true} );
     
-
     res.status(200).send(updatedUser[1][0]);
 
 } catch (error) {

@@ -49,18 +49,8 @@ const User = (sequelize) => {
         allowNull: false,
         defaultValue: 'user',
       },
-      firstLogin: {
+      google: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
-        defaultValue: true,
-      },
-      googleImage: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: undefined,
-      },
-      googleId: {
-        type: DataTypes.STRING,
         allowNull: true,
       }
     },
