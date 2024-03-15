@@ -41,10 +41,16 @@ const userHandler = ('/', async (req, res)=>{
     limit = parseInt(limit, 10);
     offset = parseInt(offset, 10);
 
-    const total = await User.count();
+//    const total = await User.count({where: {active: true}});
 
-    const allUsers = await getAllUsers(limit, offset);
-    res.status(200).send({total, allUsers});
+//    const allUsers = await getAllUsers(limit, offset);
+
+    const [totalUsers, usersList] = await Promise.all([
+      User.count({where: {active: true}}),
+      getAllUsers(limit, offset)
+    ]);
+
+    res.status(200).send({totalUsers, usersList});
   } catch (error) {
     res.status(500).json({error: error.message});
   }
@@ -79,7 +85,9 @@ const deleteUserHandler = (async (req, res)=>{
   try {
     const id = req.params.id;
     console.log(id);
-    await User.destroy({where: {id: id}});
+
+
+    await User.update({active: false}, {where: {id: id}});
     res.status(200).json({message: 'Usuario borrado.'})
 
   } catch (error) {

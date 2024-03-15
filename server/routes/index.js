@@ -41,6 +41,10 @@ router.put('/user/:id', [
   validarCampos
 ], updateUserHandler);
 
-router.delete('/user/:id', deleteUserHandler);
+router.delete('/user/:id', [
+  check('id', 'No es un id válido.').isUUID(),
+  check('id').custom( userIdExists ),
+  validarCampos
+], deleteUserHandler);
 
 module.exports = router;
