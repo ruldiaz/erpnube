@@ -41,8 +41,10 @@ const userHandler = ('/', async (req, res)=>{
     limit = parseInt(limit, 10);
     offset = parseInt(offset, 10);
 
+    const total = await User.count();
+
     const allUsers = await getAllUsers(limit, offset);
-    res.status(200).send(allUsers);
+    res.status(200).send({total, allUsers});
   } catch (error) {
     res.status(500).json({error: error.message});
   }
