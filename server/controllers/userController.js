@@ -3,9 +3,9 @@ require('dotenv').config();
 
 const { User } = require('../db');
 
-const getAllUsers = async () => {
+const getAllUsers = async (limit = 5, offset = 0) => {
   try {
-    return await User.findAll();
+    return await User.findAll({limit, offset});
 
   } catch (error) {
       throw new Error(error);

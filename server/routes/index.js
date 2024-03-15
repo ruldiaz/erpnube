@@ -4,7 +4,7 @@ const { productHandler, postProductHandler, deleteProductHandler, updateProductH
 const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler } = require('../handlers/userHandler');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validations');
-const { isRoleValid, emailExists } = require('../helpers/dbvalidators');
+const { isRoleValid, emailExists, userIdExists } = require('../helpers/dbvalidators');
 
 
 const router = Router();
@@ -34,7 +34,12 @@ router.post('/user', [
 
 router.get('/user', userHandler);
 
-router.put('/user/:id', updateUserHandler);
+router.put('/user/:id', [
+  check('id', 'No es un id válido.').isUUID(),
+  check('id').custom( userIdExists ),
+  check('rol').custom( isRoleValid ),
+  validarCampos
+], updateUserHandler);
 
 router.delete('/user/:id', deleteUserHandler);
 

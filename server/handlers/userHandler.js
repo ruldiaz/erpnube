@@ -37,7 +37,11 @@ const postUserHandler = ('/', async (req, res)=>{
 // read all users handler
 const userHandler = ('/', async (req, res)=>{
   try {
-    const allUsers = await getAllUsers();
+    let {limit = 5, offset = 0} = req.query;
+    limit = parseInt(limit, 10);
+    offset = parseInt(offset, 10);
+
+    const allUsers = await getAllUsers(limit, offset);
     res.status(200).send(allUsers);
   } catch (error) {
     res.status(500).json({error: error.message});
