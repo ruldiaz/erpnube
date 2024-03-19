@@ -4,10 +4,22 @@ const { productHandler, postProductHandler, deleteProductHandler, updateProductH
 const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler } = require('../handlers/userHandler');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validations');
-const { isRoleValid, emailExists, userIdExists } = require('../helpers/dbvalidators');
+const { isRoleValid, emailExists, userIdExists, userIsActive } = require('../helpers/dbvalidators');
+const { loginHandler } = require('../handlers/loginHandler');
+const { validarJWT } = require('../middlewares/validarJWT');
 
 
 const router = Router();
+
+// auth routes
+
+router.post('/auth/login', [
+  check('email','Email obligatorio.').isEmail(),
+  check('password','Password obligatorio.').not().isEmpty(),
+  check('email','Email no existe.').not().custom( emailExists ),
+  check('email').custom(userIsActive),
+  validarCampos
+],loginHandler);
 
 // Product routes
 
@@ -42,9 +54,12 @@ router.put('/user/:id', [
 ], updateUserHandler);
 
 router.delete('/user/:id', [
+  validarJWT,
   check('id', 'No es un id válido.').isUUID(),
   check('id').custom( userIdExists ),
   validarCampos
 ], deleteUserHandler);
+
+
 
 module.exports = router;

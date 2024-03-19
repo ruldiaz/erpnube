@@ -85,11 +85,12 @@ const deleteUserHandler = (async (req, res)=>{
   try {
     const id = req.params.id;
     console.log(id);
-
-
+    
+    const usuario = await User.findOne({where: {id: id}});
     await User.update({active: false}, {where: {id: id}});
-    res.status(200).json({message: 'Usuario borrado.'})
-
+    //console.log(usuario);
+    res.status(200).json({message: 'Usuario borrado.', usuario})
+    
   } catch (error) {
     res.status(500).json({error: error.message});
   }

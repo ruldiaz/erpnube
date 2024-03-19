@@ -22,8 +22,16 @@ const userIdExists = async (id = '') =>{
   }
 };
 
+const userIsActive = async (email = '') => {
+  const user = await User.findOne({where: {email: email}});
+  if(user && !user.active){
+    throw new Error(`Usuario con correo ${email} no está activo.`);
+  }
+}
+
 module.exports = {
   isRoleValid,
   emailExists,
-  userIdExists
+  userIdExists,
+  userIsActive
 }
