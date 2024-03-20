@@ -84,12 +84,14 @@ const updateUserHandler = (async (req, res) => {
 const deleteUserHandler = (async (req, res)=>{
   try {
     const id = req.params.id;
-    console.log(id);
+    //console.log(id);
     
-    const usuario = await User.findOne({where: {id: id}});
+    const usuarioBorrado = await User.findOne({where: {id: id}});
     await User.update({active: false}, {where: {id: id}});
     //console.log(usuario);
-    res.status(200).json({message: 'Usuario borrado.', usuario})
+    const usuarioAutenticado = req.usuario;
+   
+    res.status(200).json({message: 'Usuario borrado.', usuarioBorrado, usuarioAutenticado})
     
   } catch (error) {
     res.status(500).json({error: error.message});

@@ -7,6 +7,7 @@ const { validarCampos } = require('../middlewares/validations');
 const { isRoleValid, emailExists, userIdExists, userIsActive } = require('../helpers/dbvalidators');
 const { loginHandler } = require('../handlers/loginHandler');
 const { validarJWT } = require('../middlewares/validarJWT');
+const { isAdminRole } = require('../middlewares/validarRoles');
 
 
 const router = Router();
@@ -55,6 +56,7 @@ router.put('/user/:id', [
 
 router.delete('/user/:id', [
   validarJWT,
+  isAdminRole,
   check('id', 'No es un id válido.').isUUID(),
   check('id').custom( userIdExists ),
   validarCampos
