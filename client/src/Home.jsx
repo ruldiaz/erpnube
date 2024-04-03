@@ -10,6 +10,22 @@ function Home() {
     console.log(userObject);
     setUser(userObject);
     document.getElementById("signInDiv").hidden = true;
+
+    const body = { google_token: response.credential }
+    fetch("http://localhost:3001/auth/google", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+      .then( resp => resp.json() )
+      .then( resp => {
+        console.log(resp);
+      })
+      .catch(error=>{
+        console.error(error);
+      })
   }
 
   function handleSignOut(event){

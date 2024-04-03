@@ -5,7 +5,7 @@ const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler } = r
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validations');
 const { isRoleValid, emailExists, userIdExists, userIsActive } = require('../helpers/dbvalidators');
-const { loginHandler } = require('../handlers/loginHandler');
+const { loginHandler, googleSignInHandler } = require('../handlers/loginHandler');
 const { validarJWT } = require('../middlewares/validarJWT');
 const { isAdminRole } = require('../middlewares/validarRoles');
 
@@ -21,6 +21,11 @@ router.post('/auth/login', [
   check('email').custom(userIsActive),
   validarCampos
 ],loginHandler);
+
+router.post('/auth/google', [
+  check('google_token', 'Token de Google necesario.').not().isEmpty(),
+  validarCampos
+], googleSignInHandler);
 
 // Product routes
 
