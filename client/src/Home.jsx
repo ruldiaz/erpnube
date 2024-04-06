@@ -31,6 +31,8 @@ function Home() {
   function handleSignOut(event){
     setUser({});
     document.getElementById("signInDiv").hidden = false;
+    console.log(google.accounts.id);
+    google.accounts.id.disableAutoSelect();
   }
 
   useEffect(()=>{
