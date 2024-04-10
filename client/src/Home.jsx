@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from 'jwt-decode';
+import Menu from "./components/Menu";
+
 
 function Home() {
   const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   function handleCallbackResponse(response){
     console.log("Encoded JWT ID token" + response.credential);
     var userObject = jwtDecode(response.credential);
     console.log(userObject);
     setUser(userObject);
+    setIsLoggedIn(true);
     document.getElementById("signInDiv").hidden = true;
 
     const body = { google_token: response.credential }
@@ -22,6 +26,8 @@ function Home() {
       .then( resp => resp.json() )
       .then( resp => {
         console.log(resp);
+        // redirect to menu
+        
       })
       .catch(error=>{
         console.error(error);
@@ -30,6 +36,7 @@ function Home() {
 
   function handleSignOut(event){
     setUser({});
+    setIsLoggedIn(false);
     document.getElementById("signInDiv").hidden = false;
     console.log(google.accounts.id);
     google.accounts.id.disableAutoSelect();
@@ -59,6 +66,8 @@ function Home() {
         { Object.keys(user).length != 0 &&
           <button onClick={(e)=>handleSignOut(e)}>Sign Out</button>
         }
+
+
         
         {user && 
           <div>
@@ -66,6 +75,8 @@ function Home() {
             <h3>{user.name}</h3>
           </div>
         }
+
+        {isLoggedIn && <Menu />} {/* Render Menu component if user is logged in */}
       </div>
     </>
   );
