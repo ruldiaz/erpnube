@@ -67,7 +67,7 @@ function Home() {
           <button onClick={(e)=>handleSignOut(e)}>Sign Out</button>
         }
 
-
+        <h1 className='text-xl font-bold text-red-500'>Hello Tailwind CSS from Home component</h1>
         
         {user && 
           <div>

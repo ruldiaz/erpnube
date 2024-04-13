@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import Menu from './components/Menu';
+import "tailwindcss/tailwind.css"
 
 function App() {
   
