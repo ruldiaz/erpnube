@@ -14,8 +14,8 @@ function Menu() {
       })
       .then(data => {
         // Do something with the fetched data
-        console.log(data);
-        setUSerData(data);
+        console.log(data.usersList);
+        setUSerData(data.usersList);
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
@@ -24,18 +24,26 @@ function Menu() {
 
   return (
     <>
-        <button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Usuarios</button>
-              {/* Render the fetched data */}
+      <button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Usuarios</button>
+      {/* Render the fetched data */}
       {userData && (
         <div>
-          {/* Display user data here */}
-          {userData.map(user => (
-            <div key={user.id}>
-              <p>Name: {user.username}</p>
-              <p>Email: {user.email}</p>
-              {/* Add more user data fields as needed */}
-            </div>
-          ))}
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userData.map(user => (
+                <tr key={user.id}>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </>

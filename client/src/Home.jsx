@@ -6,6 +6,7 @@ import Menu from "./components/Menu";
 function Home() {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [formData, setFormData] = useState({username: '', password: ''});
   
   function handleCallbackResponse(response){
     console.log("Encoded JWT ID token" + response.credential);
@@ -59,15 +60,51 @@ function Home() {
 
   // if we have a user show log out button
   // if we have no user, show sign in button
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    console.log("Form submitted with data: ", formData);
+  }
+
+  function handleInputChange() {
+    const { name, value } = event.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
   return (
     <>
-      <div>
+      <div className="flex flex-col justify-center h-screen">
+      <h1 className="my-5">Home Component Login page</h1>
+
+      <form onSubmit={handleFormSubmit}>
+        <input 
+          type="text" 
+          name="username"
+          placeholder="Username"
+          value={FormData.username}
+          onChange={handleInputChange}
+          className="my-3 p-2 border border-gray-300 rounded-md"
+        />
+
+        <input 
+          type="password" 
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange='my-3 p-2 border border-gray-300 rounded-md'
+        />
+        <button type="submit" className="my-3 p-2 bg-blue-500 text-white rounded-md">Login</button>
+      </form>
+
+
         <div id="signInDiv"></div>
         { Object.keys(user).length != 0 &&
           <button onClick={(e)=>handleSignOut(e)}>Sign Out</button>
         }
 
-        <h1 className='text-xl font-bold text-red-500'>Hello Tailwind CSS from Home component</h1>
+        
         
         {user && 
           <div>

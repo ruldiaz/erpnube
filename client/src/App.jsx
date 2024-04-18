@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import Menu from './components/Menu';
 import "tailwindcss/tailwind.css"
@@ -9,10 +9,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-      </Routes>
+    <div className='flex'>
+        <div className='flex-1 flex justify-center items-center'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+          </Routes>
+        </div>
+    </div>
     </BrowserRouter>
   )
 }
