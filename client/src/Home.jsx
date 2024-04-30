@@ -6,7 +6,7 @@ import Menu from "./components/Menu";
 function Home() {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
   function handleCallbackResponse(response){
@@ -64,7 +64,20 @@ function Home() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log("Form submitted with data: ", username, password);
+    console.log("Form submitted with data: ", email, password);
+
+    // send data to backend for authentication
+    fetch("http://localhost:3001/auth/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email, password})
+    })
+    .then(response => response.json())
+    .then(data=>{
+      console.log(data);
+    })
   }
 
 
@@ -75,11 +88,11 @@ function Home() {
 
       <form onSubmit={handleFormSubmit}>
         <input 
-          type="text" 
-          name="username"
-          placeholder="Username"
-          value={username}
-          onChange={(e)=>setUsername(e.target.value)}
+          type="email" 
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
           className="my-3 p-2 border border-gray-300 rounded-md"
         />
 
