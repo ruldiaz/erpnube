@@ -6,7 +6,8 @@ import Menu from "./components/Menu";
 function Home() {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [formData, setFormData] = useState({username: '', password: ''});
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   
   function handleCallbackResponse(response){
     console.log("Encoded JWT ID token" + response.credential);
@@ -63,16 +64,10 @@ function Home() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log("Form submitted with data: ", formData);
+    console.log("Form submitted with data: ", username, password);
   }
 
-  function handleInputChange() {
-    const { name, value } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  }
+
   return (
     <>
       <div className="flex flex-col justify-center h-screen">
@@ -83,8 +78,8 @@ function Home() {
           type="text" 
           name="username"
           placeholder="Username"
-          value={FormData.username}
-          onChange={handleInputChange}
+          value={username}
+          onChange={(e)=>setUsername(e.target.value)}
           className="my-3 p-2 border border-gray-300 rounded-md"
         />
 
@@ -92,8 +87,8 @@ function Home() {
           type="password" 
           name="password"
           placeholder="Password"
-          value={formData.password}
-          onChange='my-3 p-2 border border-gray-300 rounded-md'
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
         />
         <button type="submit" className="my-3 p-2 bg-blue-500 text-white rounded-md">Login</button>
       </form>
