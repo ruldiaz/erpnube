@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-export default function Login(){
+export default function Login(props){
+
+  const {user, setUser, isLoggedIn, setIsLoggedIn} = props;
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +22,11 @@ export default function Login(){
     .then(response => response.json())
     .then(data=>{
       console.log(data);
+      if(data.token){
+        setUser(data)
+        console.log(user);
+        setIsLoggedIn(true);
+      }
     })
   }
 

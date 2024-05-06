@@ -3,8 +3,8 @@ import { jwtDecode } from 'jwt-decode';
 
 export default function GoogleSignIn(props){
 
-  const [user, setUser] = useState({});
-  const {setIsLoggedIn}   = props;
+  
+  const {user, setUser, setIsLoggedIn}   = props;
 
   useEffect(()=>{
     /*global google*/ 
