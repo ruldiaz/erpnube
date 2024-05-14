@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-function Menu() {
+
+function Users() {
 
   const [userData, setUSerData] = useState(null);
 
-  const fetchData = () => {
-    fetch('http://localhost:3001/user?limit=20&offset=0')
+  function fetchData() {
+    fetch('http://localhost:3001/user')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -24,7 +25,8 @@ function Menu() {
 
   return (
     <>
-      <button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Usuarios</button>
+      <br />
+      {<button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Usuarios</button>}
       {/* Render the fetched data */}
       {userData && (
         <div>
@@ -50,4 +52,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default Users;
