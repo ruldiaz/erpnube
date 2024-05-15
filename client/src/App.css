@@ -18,3 +18,7 @@
 .sidebar li:hover {
   background-color: #ddd;
 }
+
+.active {
+  font-weight: bold;
+}

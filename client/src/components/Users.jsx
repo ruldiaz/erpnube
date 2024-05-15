@@ -1,9 +1,11 @@
 import { useState } from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 function Users() {
 
   const [userData, setUSerData] = useState(null);
+
+  const location = useLocation();
 
   function fetchData() {
     fetch('http://localhost:3001/user')
@@ -27,6 +29,7 @@ function Users() {
     <>
       <br />
       <p>Users Component</p>
+      <p>You are currently viewing {location.pathname}</p>
       {<button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Click to show users</button>}
       {/* Render the fetched data */}
       {userData && (
