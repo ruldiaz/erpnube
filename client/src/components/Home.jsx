@@ -3,7 +3,7 @@ import Dashboard from './Dashboard';
 import UserDetails from './UserDetails';
 import Products from './Products';
 import {Routes, Route, NavLink, useLocation} from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import GoogleSignIn from "./GoogleSignIn";
 import Login from "./Login";
 import Users from './Users';
