@@ -3,7 +3,8 @@ import {configureStore, createSlice} from "@reduxjs/toolkit";
 const counterSlice = createSlice({
   name: "counter",
   initialState: {
-    value: 0
+    value: 0,
+    products: []
   },
   reducers: {
     increment: (state)=>{

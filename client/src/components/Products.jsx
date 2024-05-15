@@ -1,8 +1,12 @@
 import {useState, useEffect} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import { getProducts } from "./redux/actions";
 
 function Products(props){
 
    const [products, setProducts] = useState([]);
+   const productsDataRedux = useSelector(state => state.products);
+   const dispatch = useDispatch();
 
    useEffect(()=>{
       (async ()=>{
@@ -18,9 +22,11 @@ function Products(props){
          }
       })()
    },[])
+
+
    
    const productsData = Object.entries(products);
-   //console.log(productsData)
+  
 
    return (
       <>
@@ -48,6 +54,10 @@ function Products(props){
                </table>
             </div>
          )}   
+         <button onClick={()=>dispatch(getProducts())}>Show again</button>
+         {productsDataRedux && productsDataRedux.map((e)=>{
+            console.log(e)
+         })}
       </>
    );
 }
