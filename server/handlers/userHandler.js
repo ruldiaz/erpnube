@@ -56,6 +56,24 @@ const userHandler = ('/', async (req, res)=>{
   }
 });
 
+// get user by id details
+const userByIdHandler = ('/', async (req, res)=>{
+  try {
+    let {limit = 5, offset = 0} = req.query;
+    limit = parseInt(limit, 10);
+    offset = parseInt(offset, 10);
+
+    console.log(req.body);
+    const {id} = req.params;
+
+    const user = await User.findOne({where: {id:id}});
+
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+});
+
 // update user handler
 const updateUserHandler = (async (req, res) => {
   try {
@@ -98,4 +116,4 @@ const deleteUserHandler = (async (req, res)=>{
   }
 });
 
-module.exports = {userHandler, postUserHandler, deleteUserHandler, updateUserHandler};
+module.exports = {userHandler, postUserHandler, deleteUserHandler, updateUserHandler, userByIdHandler};

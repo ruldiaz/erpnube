@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import {Link} from "react-router-dom";
 
 function Users() {
 
@@ -15,7 +15,7 @@ function Users() {
       })
       .then(data => {
         // Do something with the fetched data
-        console.log(data.usersList);
+        //console.log(data.usersList);
         setUSerData(data.usersList);
       })
       .catch(error => {
@@ -33,6 +33,7 @@ function Users() {
           <table>
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
               </tr>
@@ -40,6 +41,7 @@ function Users() {
             <tbody>
               {userData.map(user => (
                 <tr key={user.id}>
+                  <Link to={"/user/"+user.id}><td>{user.id}</td></Link>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                 </tr>

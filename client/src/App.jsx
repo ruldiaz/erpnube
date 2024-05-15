@@ -7,6 +7,7 @@ import Users from './components/Users';
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 import Categories from './components/Categories';
 import Dashboard from './components/Dashboard';
+import UserDetails from './components/UserDetails';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/categories" element={<Categories />} />
                         <Route path="/users" element={<Users />} />
+                        <Route path="/user/:id" element={<UserDetails />} />
                        </Routes>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
 const { Router } = require('express');
 // Importar todos los routers;
 const { productHandler, postProductHandler, deleteProductHandler, updateProductHandler } = require('../handlers/productHandler');
-const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler } = require('../handlers/userHandler');
+const { postUserHandler, userHandler, updateUserHandler, deleteUserHandler, userByIdHandler } = require('../handlers/userHandler');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validations');
 const { isRoleValid, emailExists, userIdExists, userIsActive } = require('../helpers/dbvalidators');
@@ -51,6 +51,12 @@ router.post('/user', [
 ] ,postUserHandler);
 
 router.get('/user', userHandler);
+
+router.get('/user/:id', [
+  check('id', 'No es un id válido.').isUUID(),
+  check('id').custom( userIdExists ),
+  validarCampos
+], userByIdHandler);
 
 router.put('/user/:id', [
   check('id', 'No es un id válido.').isUUID(),
