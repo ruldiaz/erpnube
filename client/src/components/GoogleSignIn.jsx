@@ -41,7 +41,7 @@ export default function GoogleSignIn(props){
       .then( resp => {
         console.log(resp);
         // redirect to menu
-        
+        window.localStorage.setItem("logged", resp.googleUser.name);
       })
       .catch(error=>{
         console.error(error);

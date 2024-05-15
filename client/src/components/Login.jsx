@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Login(props){
 
@@ -6,6 +6,10 @@ export default function Login(props){
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(()=>{
+    window.localStorage.setItem("logged", user);
+  },[user])
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -24,7 +28,7 @@ export default function Login(props){
       console.log(data);
       if(data.token){
         setUser(data)
-        console.log(user);
+        console.log(user)
         setIsLoggedIn(true);
       }
     })
