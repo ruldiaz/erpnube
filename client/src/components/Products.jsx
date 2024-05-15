@@ -10,7 +10,7 @@ function Products(props){
             const response = await fetch("http://localhost:3001/products");
             const data = await response.json();
             if(data){
-               console.log(data[0]);
+               //console.log(data[0]);
                setProducts(data[0])
             }
          } catch (error) {
@@ -20,7 +20,7 @@ function Products(props){
    },[])
    
    const productsData = Object.entries(products);
-   console.log(productsData)
+   //console.log(productsData)
 
    return (
       <>
