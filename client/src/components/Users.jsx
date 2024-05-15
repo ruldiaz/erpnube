@@ -26,7 +26,8 @@ function Users() {
   return (
     <>
       <br />
-      {<button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Usuarios</button>}
+      <p>Users Component</p>
+      {<button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Click to show users</button>}
       {/* Render the fetched data */}
       {userData && (
         <div>

@@ -8,6 +8,7 @@ import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 import Categories from './components/Categories';
 import Dashboard from './components/Dashboard';
 import UserDetails from './components/UserDetails';
+import Products from './components/Products';
 
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
                         <Link to="/dashboard">Dashboard</Link>
                       </li>
                       <li>
+                        <Link to="/products">Products</Link>
+                      </li>
+                      <li>
                         <Link to="/categories">Categories</Link>
                       </li>
                       <li>
@@ -60,6 +64,7 @@ function App() {
                     <div>
                       <Routes>
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/products" element={<Products />} />
                         <Route path="/categories" element={<Categories />} />
                         <Route path="/users" element={<Users />} />
                         <Route path="/user/:id" element={<UserDetails />} />
