@@ -40,6 +40,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: 0,
     },
+    stock: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0
+    }
   },{
     timestamps: false
   });

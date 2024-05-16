@@ -16,7 +16,7 @@ function EditProducts(){
    //console.log({products});
    //console.log({filteredProduct})
 
-   const {id, codigo, costo, iva, precio, titulo, unidad} = filteredProduct[0];
+   const {id, codigo, costo, iva, precio, titulo, unidad, stock} = filteredProduct[0];
 
    function handleFormSubmit(event){
       event.preventDefault();
@@ -64,6 +64,9 @@ function EditProducts(){
 
             <label htmlFor="unidad">Unidad: </label>
             <input type="text" name="unidad" placeholder={unidad} onChange={handleChange} /><br />
+
+            <label htmlFor="stock">Stock: </label>
+            <input type="text" name="stock" placeholder={stock} onChange={handleChange} /><br />
 
             <button className="hover:bg-green-400 bg-green-500 text-white py-2 px-4 rounded" type="submit" value="Update">Update</button>
          </form>

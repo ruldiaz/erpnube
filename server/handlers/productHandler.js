@@ -11,7 +11,8 @@ const postProductHandler = ('/', async (req, res)=>{
       costo,
       iva,
       unidad,
-      precio
+      precio,
+      stock
     } = req.body;
 
     let productCreated = await Product.create({
@@ -20,7 +21,8 @@ const postProductHandler = ('/', async (req, res)=>{
       costo,
       iva,
       unidad,
-      precio
+      precio,
+      stock
     });
 
     res.status(201).send(productCreated);
@@ -45,10 +47,10 @@ const updateProductHandler = (async (req, res) => {
   try {
     console.log(req.body)
     const {id} = req.params;
-    const {titulo, codigo, costo, iva, unidad, precio} = req.body;
+    const {titulo, codigo, costo, iva, unidad, precio, stock} = req.body;
 
     const updatedProduct = await Product.update({
-        titulo, codigo, costo, iva, unidad, precio   
+        titulo, codigo, costo, iva, unidad, precio, stock   
     },  {where: {id: id}, returning: true} );
     
 

@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { setProducts } from "./redux/store";
 import {Link} from "react-router-dom";
-import { FaRegPenToSquare } from "react-icons/fa6";
+import { FaRegPenToSquare, FaDeleteLeft } from "react-icons/fa6";
 
 function Products(props){
 
@@ -42,7 +42,21 @@ function Products(props){
     }, [dispatch]);
 
 
-   
+   function handleDeleteClick(id){
+      fetch("http://localhost:3001/product/" + id, {
+         method: "DELETE",
+         headers: {
+            "Content-Type": "application/json"
+         },
+         body: JSON.stringify({id})
+      })
+      .then(response => response.json())
+      .then(data => {
+         console.log(data)
+      })
+      .catch(error=>console.error(error));
+      
+   }
   //console.log(productsDataRedux)
   
   return (
@@ -60,6 +74,7 @@ function Products(props){
               <th className="bg-blue-500 px-4 py-2 rounded text-white">IVA</th>
               <th className="bg-blue-500 px-4 py-2 rounded text-white">Unit</th>
               <th className="bg-blue-500 px-4 py-2 rounded text-white">Price</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">Stock</th>
               <th className="bg-gray-500 px-4 py-2 rounded text-white">Edit</th>
             </tr>
           </thead>
@@ -74,7 +89,9 @@ function Products(props){
                   <td className="border px-4 py-2">{product.iva}</td>
                   <td className="border px-4 py-2">{product.unidad}</td>
                   <td className="border px-4 py-2">{product.precio}</td>
-                  <Link to={"/editproducts/" + product.id}><td className="rounded hover:bg-green-400 bg-green-500 border text-center px-4 py-2"><FaRegPenToSquare /></td></Link>
+                  <td className="border px-4 py-2">{product.stock}</td>
+                  <Link to={"/editproducts/" + product.id}><td className="rounded hover:text-green-400 text-green-500 border text-center px-4 py-2"><FaRegPenToSquare /></td></Link>
+                  {product.stock === 0 && <button onClick={()=>handleDeleteClick(product.id)} className="border rounded px-4 py-2 text-red-500"><FaDeleteLeft /></button>}
                 </tr>
               ))}
           </tbody>
