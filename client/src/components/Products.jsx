@@ -73,7 +73,7 @@ function Products(props){
                   <td className="border px-4 py-2">{product.iva}</td>
                   <td className="border px-4 py-2">{product.unidad}</td>
                   <td className="border px-4 py-2">{product.precio}</td>
-                  <Link to={"/editproducts/" + product.id}><td className="border text-center px-4 py-2">Edit</td></Link>
+                  <Link to={"/editproducts/" + product.id}><td className="hover:bg-green-400 bg-green-500 border text-center px-4 py-2">Edit</td></Link>
                 </tr>
               ))}
           </tbody>

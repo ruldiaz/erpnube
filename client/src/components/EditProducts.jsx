@@ -65,7 +65,7 @@ function EditProducts(){
             <label htmlFor="unidad">Unidad: </label>
             <input type="text" name="unidad" placeholder={unidad} onChange={handleChange} /><br />
 
-            <button className="bg-green-500 text-white py-2 px-4 rounded" type="submit" value="Update">Update</button>
+            <button className="hover:bg-green-400 bg-green-500 text-white py-2 px-4 rounded" type="submit" value="Update">Update</button>
          </form>
       </>
    );
