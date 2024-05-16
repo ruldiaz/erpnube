@@ -17,8 +17,11 @@ const warehouseSlice = createSlice({
       state.value = 0
     },
     setProducts: (state, action)=>{
-      state.products = action.payload;
+      state.products = action.payload
     },
+    deleteProduct: (state, action)=>{
+      state.products.filter((product)=>product.id !== action.payload)
+    }
   }
 })
 
@@ -26,6 +29,6 @@ const store = configureStore({
   reducer: warehouseSlice.reducer
 })
 
-const {increment, decrement, reset, setProducts} = warehouseSlice.actions;
+const {increment, decrement, reset, setProducts, deleteProduct} = warehouseSlice.actions;
 
-export {store, increment, decrement, reset, setProducts};
+export {store, increment, decrement, reset, setProducts, deleteProduct};

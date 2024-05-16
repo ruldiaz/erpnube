@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import { setProducts } from "./redux/store";
+import { deleteProduct, setProducts } from "./redux/store";
 import {Link} from "react-router-dom";
 import { FaRegPenToSquare, FaDeleteLeft } from "react-icons/fa6";
 
@@ -9,19 +9,20 @@ function Products(props){
    const productsDataRedux = useSelector(state => state.products);
    const dispatch = useDispatch();
 
+   const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/products");
+      const data = await response.json();
+      if (data) {
+        dispatch(setProducts(data));
+        //console.log(data)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
    useEffect(() => {
-      const fetchProducts = async () => {
-        try {
-          const response = await fetch("http://localhost:3001/products");
-          const data = await response.json();
-          if (data) {
-            dispatch(setProducts(data));
-            //console.log(data)
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
       fetchProducts();
     }, [dispatch]);
 
@@ -37,9 +38,10 @@ function Products(props){
       .then(response => response.json())
       .then(data => {
          console.log(data)
+         dispatch(deleteProduct(id));
+         fetchProducts();
       })
       .catch(error=>console.error(error));
-      
    }
   
   return (
