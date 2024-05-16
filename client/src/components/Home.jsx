@@ -7,6 +7,7 @@ import { useState } from "react";
 import GoogleSignIn from "./GoogleSignIn";
 import Login from "./Login";
 import Users from './Users';
+import EditProducts from './EditProducts';
 
 function getClassName({isActive}){
   if(isActive){
@@ -73,6 +74,7 @@ function Home(){
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/users" element={<Users />} />
                     <Route path="/user/:id" element={<UserDetails />} />
+                    <Route path="/editproducts/:id" element={<EditProducts />} />
                     </Routes>
                 </div>
               </div>

@@ -42,7 +42,7 @@ function Users() {
             <tbody>
               {userData.map(user => (
                 <tr key={user.id}>
-                  <Link to={"/user/"+user.id}><td>{user.id}</td></Link>
+                  <Link to={"/user/" + user.id}><td>{user.id}</td></Link>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                 </tr>
