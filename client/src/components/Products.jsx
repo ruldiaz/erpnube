@@ -51,13 +51,13 @@ function Products(props){
         <table className="table-auto w-full">
           <thead>
             <tr>
-              <th className="px-4 py-2">ID</th>
-              <th className="px-4 py-2">Title</th>
-              <th className="px-4 py-2">Code</th>
-              <th className="px-4 py-2">Cost</th>
-              <th className="px-4 py-2">IVA</th>
-              <th className="px-4 py-2">Unit</th>
-              <th className="px-4 py-2">Price</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">ID</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">Title</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">Code</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">Cost</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">IVA</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">Unit</th>
+              <th className="bg-blue-500 px-4 py-2 rounded text-white">Price</th>
             </tr>
           </thead>
           <tbody>

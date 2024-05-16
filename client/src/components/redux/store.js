@@ -1,7 +1,7 @@
 import {configureStore, createSlice} from "@reduxjs/toolkit";
 
-const counterSlice = createSlice({
-  name: "counter",
+const warehouseSlice = createSlice({
+  name: "warehouse",
   initialState: {
     value: 0,
     products: []
@@ -23,9 +23,9 @@ const counterSlice = createSlice({
 })
 
 const store = configureStore({
-  reducer: counterSlice.reducer
+  reducer: warehouseSlice.reducer
 })
 
-const {increment, decrement, reset, setProducts} = counterSlice.actions;
+const {increment, decrement, reset, setProducts} = warehouseSlice.actions;
 
 export {store, increment, decrement, reset, setProducts};
