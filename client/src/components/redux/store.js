@@ -15,7 +15,10 @@ const counterSlice = createSlice({
     },
     reset: (state)=>{ 
       state.value = 0
-    }
+    },
+    setProducts: (state, action)=>{
+      state.products = action.payload;
+    },
   }
 })
 
@@ -23,6 +26,6 @@ const store = configureStore({
   reducer: counterSlice.reducer
 })
 
-const {increment, decrement, reset} = counterSlice.actions;
+const {increment, decrement, reset, setProducts} = counterSlice.actions;
 
-export {store, increment, decrement, reset};
+export {store, increment, decrement, reset, setProducts};

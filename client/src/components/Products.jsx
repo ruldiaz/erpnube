@@ -1,14 +1,14 @@
 import {useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import { getProducts } from "./redux/actions";
+import { setProducts } from "./redux/store";
 
 function Products(props){
 
-   const [products, setProducts] = useState([]);
+   //const [products, setProducts] = useState([]);
    const productsDataRedux = useSelector(state => state.products);
    const dispatch = useDispatch();
 
-   useEffect(()=>{
+   /*useEffect(()=>{
       (async ()=>{
          try {
             const response = await fetch("http://localhost:3001/products");
@@ -21,45 +21,63 @@ function Products(props){
             console.error(error);
          }
       })()
-   },[])
+   },[])*/
+
+   useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          const response = await fetch("http://localhost:3001/products");
+          const data = await response.json();
+          if (data) {
+            dispatch(setProducts(data));
+            //console.log(data)
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchProducts();
+    }, [dispatch]);
 
 
    
-   const productsData = Object.entries(products);
+  //console.log(productsDataRedux)
   
-
-   return (
-      <>
+  return (
+<>
       <br />
-         <p>Products Component</p>
-         {productsData && (
-            <div className="overflow-x-auto">
-               <table className="table-auto w-full">
-                  <thead>
-                     <tr>
-                        <th className="border-gray-300 py-2 px-4">Attribute</th>
-                        <th className="border-gray-300 py-2 px-4">Value</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {productsData.map(([key,value])=>(
-                        <tr key={key}>
-                           <td className="border border-gray-300 py-2 px-4">{key}</td>
-                           <td className="border border-gray-300 py-2 px-4">{value}</td>
-                        </tr>
-                     ))
-
-                     }
-                  </tbody>
-               </table>
-            </div>
-         )}   
-         <button onClick={()=>dispatch(getProducts())}>Show again</button>
-         {productsDataRedux && productsDataRedux.map((e)=>{
-            console.log(e)
-         })}
-      </>
-   );
+      <p className="text-xl font-bold mb-4">Products Component</p>
+      <div className="overflow-x-auto">
+        <table className="table-auto w-full">
+          <thead>
+            <tr>
+              <th className="px-4 py-2">ID</th>
+              <th className="px-4 py-2">Title</th>
+              <th className="px-4 py-2">Code</th>
+              <th className="px-4 py-2">Cost</th>
+              <th className="px-4 py-2">IVA</th>
+              <th className="px-4 py-2">Unit</th>
+              <th className="px-4 py-2">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productsDataRedux &&
+              productsDataRedux.map((product, index) => (
+                <tr key={index}>
+                  <td className="border px-4 py-2">{product.id}</td>
+                  <td className="border px-4 py-2">{product.titulo}</td>
+                  <td className="border px-4 py-2">{product.codigo}</td>
+                  <td className="border px-4 py-2">{product.costo}</td>
+                  <td className="border px-4 py-2">{product.iva}</td>
+                  <td className="border px-4 py-2">{product.unidad}</td>
+                  <td className="border px-4 py-2">{product.precio}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+ );
 }
 
 export default Products;

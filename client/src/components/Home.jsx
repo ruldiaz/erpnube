@@ -67,7 +67,7 @@ function Home(){
               <div className='flex justify-center'>
                 <div>
                   <Routes>
-                    <Route path="/" element={<Login />} />
+                    {/*<Route path="/" element={<Login />} />*/}
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/categories" element={<Categories />} />
