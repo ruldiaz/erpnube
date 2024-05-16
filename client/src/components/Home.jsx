@@ -8,6 +8,7 @@ import GoogleSignIn from "./GoogleSignIn";
 import Login from "./Login";
 import Users from './Users';
 import EditProducts from './EditProducts';
+import AddProducts from './AddProducts';
 
 function getClassName({isActive}){
   if(isActive){
@@ -75,6 +76,7 @@ function Home(){
                     <Route path="/users" element={<Users />} />
                     <Route path="/user/:id" element={<UserDetails />} />
                     <Route path="/editproducts/:id" element={<EditProducts />} />
+                    <Route path="/addproducts" element={<AddProducts />} />
                     </Routes>
                 </div>
               </div>

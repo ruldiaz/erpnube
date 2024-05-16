@@ -45,28 +45,28 @@ function EditProducts(){
          
          <form onSubmit={handleFormSubmit}>
             <label htmlFor="id">Id: </label>
-            <input type="text" name="id" value={id} disabled="disabled" onChange={handleChange} /><br />
+            <input type="text" id="id" name="id" value={id} disabled="disabled" onChange={handleChange} /><br />
             
             <label htmlFor="codigo">Código: </label>
-            <input type="text" name="codigo" placeholder={codigo} onChange={handleChange} /><br />
+            <input type="text" id="codigo" name="codigo" placeholder={codigo} onChange={handleChange} /><br />
 
             <label htmlFor="titulo">Título: </label>
-            <input type="text" name="titulo" placeholder={titulo} onChange={handleChange} /><br />
+            <input type="text" id="titulo" name="titulo" placeholder={titulo} onChange={handleChange} /><br />
 
             <label htmlFor="costo">Costo: </label>
-            <input type="text" name="costo" placeholder={costo} onChange={handleChange} /><br />
+            <input type="text" id="costo" name="costo" placeholder={costo} onChange={handleChange} /><br />
 
             <label htmlFor="iva">IVA: </label>
-            <input type="text" name="iva" placeholder={iva} onChange={handleChange} /><br />
+            <input type="text" id="iva" name="iva" placeholder={iva} onChange={handleChange} /><br />
 
             <label htmlFor="precio">Precio: </label>
-            <input type="text" name="precio" placeholder={precio} onChange={handleChange} /><br />
+            <input type="text" id="precio" name="precio" placeholder={precio} onChange={handleChange} /><br />
 
             <label htmlFor="unidad">Unidad: </label>
-            <input type="text" name="unidad" placeholder={unidad} onChange={handleChange} /><br />
+            <input type="text" id="unidad" name="unidad" placeholder={unidad} onChange={handleChange} /><br />
 
             <label htmlFor="stock">Stock: </label>
-            <input type="text" name="stock" placeholder={stock} onChange={handleChange} /><br />
+            <input type="text" id="stock" name="stock" placeholder={stock} onChange={handleChange} /><br />
 
             <button className="hover:bg-green-400 bg-green-500 text-white py-2 px-4 rounded" type="submit" value="Update">Update</button>
          </form>

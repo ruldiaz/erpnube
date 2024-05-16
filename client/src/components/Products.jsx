@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { setProducts } from "./redux/store";
 import {Link} from "react-router-dom";
@@ -6,24 +6,8 @@ import { FaRegPenToSquare, FaDeleteLeft } from "react-icons/fa6";
 
 function Products(props){
 
-   //const [products, setProducts] = useState([]);
    const productsDataRedux = useSelector(state => state.products);
    const dispatch = useDispatch();
-
-   /*useEffect(()=>{
-      (async ()=>{
-         try {
-            const response = await fetch("http://localhost:3001/products");
-            const data = await response.json();
-            if(data){
-               //console.log(data[0]);
-               setProducts(data[0])
-            }
-         } catch (error) {
-            console.error(error);
-         }
-      })()
-   },[])*/
 
    useEffect(() => {
       const fetchProducts = async () => {
@@ -41,7 +25,7 @@ function Products(props){
       fetchProducts();
     }, [dispatch]);
 
-
+    
    function handleDeleteClick(id){
       fetch("http://localhost:3001/product/" + id, {
          method: "DELETE",
@@ -57,12 +41,14 @@ function Products(props){
       .catch(error=>console.error(error));
       
    }
-  //console.log(productsDataRedux)
   
   return (
 <>
       <br />
       <p className="text-xl font-bold mb-4">Products Component</p>
+      <div className="flex justify-end">
+        <Link to="/addproducts"><button className="hover:bg-blue-200 bg-blue-300 py-2 px-4 mb-2 rounded">Add Product</button></Link>
+      </div>
       <div className="overflow-x-auto">
         <table className="table-auto w-full">
           <thead>
