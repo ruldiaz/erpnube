@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {useState} from "react";
 
 function AddProducts(){
-  const [productData, setProductDate] = useState(null);
+  const [productData, setProductData] = useState(null);
 
   function handleFormSubmit(event){
     event.preventDefault();
@@ -17,11 +17,12 @@ function AddProducts(){
     .then(data => {
       console.log(data)
     })
+    .catch(error=>console.error(error));
   }
 
   function handleChange(e){
     const {name, value} = e.target;
-    setProductDate({...productData, [name]: value});
+    setProductData({...productData, [name]: value});
   }
 
   return (

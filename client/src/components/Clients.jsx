@@ -47,7 +47,7 @@ function handleDeleteClick(id){
       <br />
       <p className="text-xl font-bold mb-4">Clients Component</p>
       <div className="flex justify-end">
-        <Link><button className="hover:bg-blue-200 bg-blue-300 py-2 px-4 mb-2 rounded">Add Client</button></Link>
+        <Link to="/addclient"><button className="hover:bg-blue-200 bg-blue-300 py-2 px-4 mb-2 rounded">Add Client</button></Link>
       </div>
       <div className="overflow-x-auto">
         <table className="table-auto w-full">

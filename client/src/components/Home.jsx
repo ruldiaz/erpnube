@@ -9,6 +9,7 @@ import Login from "./Login";
 import Users from './Users';
 import EditProducts from './EditProducts';
 import AddProducts from './AddProducts';
+import AddClients from './AddClients';
 import Clients from './Clients';
 
 function getClassName({isActive}){
@@ -82,6 +83,7 @@ function Home(){
                     <Route path="/editproducts/:id" element={<EditProducts />} />
                     <Route path="/addproducts" element={<AddProducts />} />
                     <Route path="/clients" element={<Clients />} />
+                    <Route path="/addclient" element={<AddClients />} />
                     </Routes>
                 </div>
               </div>
