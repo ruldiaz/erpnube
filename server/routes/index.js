@@ -8,6 +8,7 @@ const { isRoleValid, emailExists, userIdExists, userIsActive } = require('../hel
 const { loginHandler, googleSignInHandler } = require('../handlers/loginHandler');
 const { validarJWT } = require('../middlewares/validarJWT');
 const { isAdminRole } = require('../middlewares/validarRoles');
+const { postClientHandler, getClientHandler, updateClientHandler, deleteClientHandler } = require('../handlers/clientHandler');
 
 
 const router = Router();
@@ -26,6 +27,12 @@ router.post('/auth/google', [
   check('google_token', 'Token de Google necesario.').not().isEmpty(),
   validarCampos
 ], googleSignInHandler);
+
+// Client routes
+router.post('/client', postClientHandler);
+router.get('/client', getClientHandler);
+router.put('/client/:id', updateClientHandler);
+router.delete('/client/:id', deleteClientHandler);
 
 // Product routes
 
