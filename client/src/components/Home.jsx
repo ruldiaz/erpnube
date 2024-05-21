@@ -11,6 +11,7 @@ import EditProducts from './EditProducts';
 import AddProducts from './AddProducts';
 import AddClients from './AddClients';
 import Clients from './Clients';
+import EditClients from './EditClients';
 
 function getClassName({isActive}){
   if(isActive){
@@ -84,7 +85,8 @@ function Home(){
                     <Route path="/addproducts" element={<AddProducts />} />
                     <Route path="/clients" element={<Clients />} />
                     <Route path="/addclient" element={<AddClients />} />
-                    </Routes>
+                    <Route path="/editclients/:id" element={<EditClients />} />
+                  </Routes>
                 </div>
               </div>
             </main>
