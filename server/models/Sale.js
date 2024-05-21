@@ -15,16 +15,9 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: false,
     },
-    folio: {
-      type: DataTypes.STRING,
+    cantidad: {
+      type: DataTypes.FLOAT,
       allowNull: false,
-      unique: false,
-    },
-    metodo_pago: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: "XAXX010101000",
-      unique: false
     },
     total: {
       type: DataTypes.FLOAT,

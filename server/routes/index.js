@@ -9,6 +9,7 @@ const { loginHandler, googleSignInHandler } = require('../handlers/loginHandler'
 const { validarJWT } = require('../middlewares/validarJWT');
 const { isAdminRole } = require('../middlewares/validarRoles');
 const { postClientHandler, getClientHandler, updateClientHandler, deleteClientHandler } = require('../handlers/clientHandler');
+const { postSaleHandler } = require('../handlers/saleHandler');
 
 
 const router = Router();
@@ -33,6 +34,9 @@ router.post('/client', postClientHandler);
 router.get('/client', getClientHandler);
 router.put('/client/:id', updateClientHandler);
 router.delete('/client/:id', deleteClientHandler);
+
+// Sale routes
+router.post('/sales', postSaleHandler);
 
 // Product routes
 
