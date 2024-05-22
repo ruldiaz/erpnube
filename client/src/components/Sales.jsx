@@ -34,7 +34,10 @@ function Sales(){
   function handleChange(event){
     const {name, value} = event.target;
     setSale({...sale, [name]: value});
-    console.log(sale);
+    if(sale){
+      console.log(sale);
+    }
+    
   }
 
   return (
@@ -43,7 +46,7 @@ function Sales(){
       <br />
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="fecha">Fecha: </label>
-        <input type="text" id="fecha" name="fecha" value={sale.fecha}  />
+        <input type="text" id="fecha" name="fecha" value={sale.fecha} onChange={handleChange} />
 
         <label htmlFor="razon_social">Cliente: </label>
         <select id="razon_social" onChange={handleChange}>
