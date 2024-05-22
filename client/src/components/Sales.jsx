@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function Sales(){
   const [sale, setSale] = useState({
-    fecha: '',
+    fecha: new Date(),
     razon_social: '',
     producto: '',
     cantidad: '',
@@ -43,7 +43,7 @@ function Sales(){
       <br />
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="fecha">Fecha: </label>
-        <input type="text" id="fecha" name="fecha" placeholder={new Date().toISOString().split('T')[0].split('-').reverse().join('/')} />
+        <input type="text" id="fecha" name="fecha" value={sale.fecha}  />
 
         <label htmlFor="razon_social">Cliente: </label>
         <select id="razon_social" onChange={handleChange}>
