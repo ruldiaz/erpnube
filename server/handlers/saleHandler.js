@@ -8,6 +8,7 @@ const postSaleHandler = ('/', async (req, res)=>{
       fecha,
       folio,
       metodo_pago,
+      cantidad,
       total
     } = req.body;
 
@@ -15,6 +16,7 @@ const postSaleHandler = ('/', async (req, res)=>{
       fecha,
       folio,
       metodo_pago,
+      cantidad,
       total
     });
 
