@@ -1,9 +1,13 @@
 import { useState } from "react";
 import {Link} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUsers } from "./redux/store";
 
 function Users() {
 
   const [userData, setUSerData] = useState(null);
+
+  const dispatch = useDispatch();
 
   function fetchData() {
     fetch('http://localhost:3001/user')
@@ -17,6 +21,8 @@ function Users() {
         // Do something with the fetched data
         //console.log(data.usersList);
         setUSerData(data.usersList);
+        console.log(data.usersList)
+        dispatch(setUsers(data.usersList));
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);

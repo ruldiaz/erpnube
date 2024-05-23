@@ -8,6 +8,8 @@ const postSaleHandler = ('/', async (req, res)=>{
       fecha,
       razon_social,
       data,
+      clientId,
+      userId,
       total
     } = req.body;
 
@@ -15,6 +17,8 @@ const postSaleHandler = ('/', async (req, res)=>{
       fecha,
       razon_social,
       data,
+      clientId,
+      userId,
       total
     });
 

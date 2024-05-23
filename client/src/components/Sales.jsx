@@ -2,21 +2,28 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 function Sales() {
-  const [sale, setSale] = useState({
-    fecha: new Date().toISOString().slice(0, 10),  // Format date as YYYY-MM-DD
-    razon_social: '',
-    data: [],
-    total: 0
-  });
-
+  
   const [selectedProduct, setSelectedProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
 
   const clients = useSelector(state => state.clients);
   const products = useSelector(state => state.products);
+  const users = useSelector(state => state.users);
+  console.log(users);
+
+  const [sale, setSale] = useState({
+    fecha: new Date().toISOString().slice(0, 10), // Format date as YYYY-MM-DD
+    razon_social: '',
+    data: [],
+    total: 0,
+    clientId: '',
+    userId: users[0]?.id
+  });
+
 
   function handleFormSubmit(event) {
     event.preventDefault();
+    console.log("Submitting sale:", sale);
     fetch("http://localhost:3001/sales", {
       method: "POST",
       headers: {
@@ -26,10 +33,10 @@ function Sales() {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
+      console.log("Server response:", data);
       // Optionally reset the form or update the state
     })
-    .catch(error => console.error(error));
+    .catch(error => console.error("Error:", error));
   }
 
   function handleInputChange(event) {
@@ -37,6 +44,17 @@ function Sales() {
     setSale(prevState => ({
       ...prevState,
       [name]: value
+    }));
+  }
+
+  function handleClientSelection(event) {
+    const { value } = event.target;
+    const selectedClient = clients.find(client => client.razon_social === value);
+    console.log(selectedClient)
+    setSale(prevState => ({
+      ...prevState,
+      razon_social: value,
+      clientId: selectedClient ? selectedClient.id : '' 
     }));
   }
 
@@ -56,7 +74,7 @@ function Sales() {
       const newProduct = {
         product: product.titulo,
         quantity: parseInt(quantity, 10),
-        price: product.precio,  // Fetch price from the product state
+        price: product.precio, // Fetch price from the product state
         importe: product.precio * parseInt(quantity, 10)
       };
 
@@ -66,7 +84,7 @@ function Sales() {
       setSale(prevState => ({
         ...prevState,
         data: updatedData,
-        total: updatedTotal
+        total: updatedTotal,
       }));
 
       // Reset product selection and quantity
@@ -94,11 +112,11 @@ function Sales() {
           id="razon_social"
           name="razon_social"
           value={sale.razon_social}
-          onChange={handleInputChange}
+          onChange={handleClientSelection}
         >
           <option value="">Seleccione un cliente</option>
           {clients && clients.map((client) => (
-            <option key={client.razon_social} value={client.razon_social}>
+            <option key={client.id} value={client.razon_social}>
               {client.razon_social}
             </option>
           ))}
