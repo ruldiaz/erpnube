@@ -22,6 +22,10 @@ module.exports = (sequelize) => {
     data: {
       type: DataTypes.JSON,
       allowNull: false,
+    },
+    total: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
     }
   },{
     timestamps: false

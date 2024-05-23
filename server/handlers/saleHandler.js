@@ -7,13 +7,15 @@ const postSaleHandler = ('/', async (req, res)=>{
     let {
       fecha,
       razon_social,
-      data
+      data,
+      total
     } = req.body;
 
     let saleCreated = await Sale.create({
       fecha,
       razon_social,
-      data
+      data,
+      total
     });
 
     res.status(201).send(saleCreated);

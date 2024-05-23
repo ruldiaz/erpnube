@@ -5,7 +5,8 @@ function Sales() {
   const [sale, setSale] = useState({
     fecha: new Date().toISOString().slice(0, 10),  // Format date as YYYY-MM-DD
     razon_social: '',
-    data: []
+    data: [],
+    total: 0
   });
 
   const [selectedProduct, setSelectedProduct] = useState('');
@@ -59,9 +60,13 @@ function Sales() {
         importe: product.precio * parseInt(quantity, 10)
       };
 
+      const updatedData = [...sale.data, newProduct];
+      const updatedTotal = updatedData.reduce((sum, item) => sum + item.importe, 0);
+
       setSale(prevState => ({
         ...prevState,
-        data: [...prevState.data, newProduct]
+        data: updatedData,
+        total: updatedTotal
       }));
 
       // Reset product selection and quantity
@@ -138,6 +143,7 @@ function Sales() {
             </li>
           ))}
         </ul>
+        <h3>Total: {sale.total}</h3>
         <br />
         <button
           className="hover:bg-green-400 bg-green-500 text-white py-2 px-4 rounded"
