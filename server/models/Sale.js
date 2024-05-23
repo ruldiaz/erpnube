@@ -15,15 +15,14 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: false,
     },
-    cantidad: {
-      type: DataTypes.FLOAT,
+    razon_social: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    total: {
-      type: DataTypes.FLOAT,
+    data: {
+      type: DataTypes.JSON,
       allowNull: false,
-      unique: false,
-    },
+    }
   },{
     timestamps: false
   });

@@ -9,7 +9,7 @@ const { loginHandler, googleSignInHandler } = require('../handlers/loginHandler'
 const { validarJWT } = require('../middlewares/validarJWT');
 const { isAdminRole } = require('../middlewares/validarRoles');
 const { postClientHandler, getClientHandler, updateClientHandler, deleteClientHandler } = require('../handlers/clientHandler');
-const { postSaleHandler } = require('../handlers/saleHandler');
+const { postSaleHandler, getSaleHandler } = require('../handlers/saleHandler');
 
 
 const router = Router();
@@ -37,6 +37,7 @@ router.delete('/client/:id', deleteClientHandler);
 
 // Sale routes
 router.post('/sales', postSaleHandler);
+router.get('/sales', getSaleHandler);
 
 // Product routes
 

@@ -6,18 +6,14 @@ const postSaleHandler = ('/', async (req, res)=>{
   try {
     let {
       fecha,
-      folio,
-      metodo_pago,
-      cantidad,
-      total
+      razon_social,
+      data
     } = req.body;
 
     let saleCreated = await Sale.create({
       fecha,
-      folio,
-      metodo_pago,
-      cantidad,
-      total
+      razon_social,
+      data
     });
 
     res.status(201).send(saleCreated);
@@ -26,6 +22,18 @@ const postSaleHandler = ('/', async (req, res)=>{
   }
 });
 
+// read all sales
+const getSaleHandler = ('/', async (req, res)=>{
+  try {
+    const allSales = await Sale.findAll();
+    res.status(201).json(allSales);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: error.message});
+  }
+});
+
 module.exports = {
-  postSaleHandler
+  postSaleHandler,
+  getSaleHandler
 }

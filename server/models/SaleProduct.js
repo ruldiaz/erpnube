@@ -20,6 +20,10 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    data: {
+      type: DataTypes.JSON,
+      allowNull: false,
+    }
   },{
     timestamps: false,
   })

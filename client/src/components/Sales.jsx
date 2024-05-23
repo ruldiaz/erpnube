@@ -1,43 +1,73 @@
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 
-
-function Sales(){
+function Sales() {
   const [sale, setSale] = useState({
-    fecha: new Date(),
+    fecha: new Date().toISOString().slice(0, 10),  // Format date as YYYY-MM-DD
     razon_social: '',
-    producto: '',
-    cantidad: '',
-    precio: '',
-    total: ''
+    data: []
   });
+
+  const [selectedProduct, setSelectedProduct] = useState('');
+  const [quantity, setQuantity] = useState(1);
+
   const clients = useSelector(state => state.clients);
   const products = useSelector(state => state.products);
-  console.log(products);
 
-  function handleFormSubmit(event){
+  function handleFormSubmit(event) {
     event.preventDefault();
-    fetch("http://localhost:3001/sales",{
+    fetch("http://localhost:3001/sales", {
       method: "POST",
       headers: {
-        "Content-Type":"application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(sale)
     })
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      // Optionally reset the form or update the state
     })
     .catch(error => console.error(error));
   }
 
-  function handleChange(event){
-    const {name, value} = event.target;
-    setSale({...sale, [name]: value});
-    if(sale){
-      console.log(sale);
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setSale(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
+
+  function handleProductSelection(event) {
+    const { value } = event.target;
+    setSelectedProduct(value);
+  }
+
+  function handleQuantityChange(event) {
+    setQuantity(event.target.value);
+  }
+
+  function handleAddProduct() {
+    const product = products.find(product => product.titulo === selectedProduct);
+
+    if (product) {
+      const newProduct = {
+        product: product.titulo,
+        quantity: parseInt(quantity, 10),
+        price: product.precio,  // Fetch price from the product state
+        importe: product.precio * parseInt(quantity, 10)
+      };
+
+      setSale(prevState => ({
+        ...prevState,
+        data: [...prevState.data, newProduct]
+      }));
+
+      // Reset product selection and quantity
+      setSelectedProduct('');
+      setQuantity(1);
     }
-    
   }
 
   return (
@@ -46,34 +76,76 @@ function Sales(){
       <br />
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="fecha">Fecha: </label>
-        <input type="text" id="fecha" name="fecha" value={sale.fecha} onChange={handleChange} />
-
+        <input
+          type="date"
+          id="fecha"
+          name="fecha"
+          value={sale.fecha}
+          onChange={handleInputChange}
+        />
+        <br />
         <label htmlFor="razon_social">Cliente: </label>
-        <select id="razon_social" onChange={handleChange}>
-        <option value="">Seleccione un cliente</option>
-          {clients && clients.map((client)=>{
-            return <option value={client.razon_social}>{client.razon_social}</option>
-          })}
-        </select><br />
-
+        <select
+          id="razon_social"
+          name="razon_social"
+          value={sale.razon_social}
+          onChange={handleInputChange}
+        >
+          <option value="">Seleccione un cliente</option>
+          {clients && clients.map((client) => (
+            <option key={client.razon_social} value={client.razon_social}>
+              {client.razon_social}
+            </option>
+          ))}
+        </select>
+        <br />
         <label htmlFor="producto">Producto: </label>
-        <select id="producto" onChange={handleChange}>
-        <option value="">Seleccione un producto</option>
-          {products.map((producto)=>{
-            return <option value={producto.titulo}>{producto.titulo}</option>
-          })}
-        </select><br />
-
-        <label htmlFor="cantidad">Cantidad: </label>
-        <input type="text" name="cantidad" id="cantidad" onChange={handleChange} /><br />
-
-        <label htmlFor="precio">Precio: </label>
-        <input type="text" id="precio" name="precio" onChange={handleChange} /><br />
-
-        <label htmlFor="total">Total: </label>
-        <input type="text" id="total" name="total" onChange={handleChange} />
-
-        <button className="hover:bg-green-400 bg-green-500 text-white py-2 px-4 rounded" type="submit" value="Save">Save</button>   
+        <select id="producto" value={selectedProduct} onChange={handleProductSelection}>
+          <option value="">Seleccione un producto</option>
+          {products.map((producto) => (
+            <option key={producto.titulo} value={producto.titulo}>
+              {producto.titulo}
+            </option>
+          ))}
+        </select>
+        <br />
+        {selectedProduct && (
+          <>
+            <label htmlFor="quantity">Cantidad: </label>
+            <input
+              type="number"
+              id="quantity"
+              value={quantity}
+              min="1"
+              onChange={handleQuantityChange}
+            />
+            <br />
+            <button
+              type="button"
+              onClick={handleAddProduct}
+              className="hover:bg-blue-400 bg-blue-500 text-white py-2 px-4 rounded"
+            >
+              Add Product
+            </button>
+            <br />
+          </>
+        )}
+        <h3>Productos seleccionados:</h3>
+        <ul>
+          {sale.data.map((item, index) => (
+            <li key={index}>
+              {item.product} - Cantidad: {item.quantity} - Precio: {item.price} - Importe: {item.importe}
+            </li>
+          ))}
+        </ul>
+        <br />
+        <button
+          className="hover:bg-green-400 bg-green-500 text-white py-2 px-4 rounded"
+          type="submit"
+          value="Save"
+        >
+          Save
+        </button>
       </form>
     </>
   );
