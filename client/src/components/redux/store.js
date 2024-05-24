@@ -6,7 +6,8 @@ const warehouseSlice = createSlice({
     value: 0,
     products: [],
     clients: [],
-    users: []
+    users: [],
+    carrito: []
   },
   reducers: {
     increment: (state)=>{
@@ -32,6 +33,9 @@ const warehouseSlice = createSlice({
     },
     setUsers: (state, action)=>{
       state.users = action.payload
+    },
+    setCarrito: (state, action)=>{
+      state.carrito = action.payload
     }
   }
 })
@@ -40,6 +44,6 @@ const store = configureStore({
   reducer: warehouseSlice.reducer
 })
 
-const {increment, decrement, reset, setProducts, deleteProduct, setClients, deleteClient, setUsers} = warehouseSlice.actions;
+const {increment, decrement, reset, setProducts, deleteProduct, setClients, deleteClient, setUsers, setCarrito} = warehouseSlice.actions;
 
-export {store, increment, decrement, reset, setProducts, deleteProduct, setClients, deleteClient, setUsers};
+export {store, increment, decrement, reset, setProducts, deleteProduct, setClients, deleteClient, setUsers, setCarrito};
