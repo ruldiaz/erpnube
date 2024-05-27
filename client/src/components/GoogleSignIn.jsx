@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import { jwtDecode } from 'jwt-decode';
+import { useDispatch } from "react-redux";
+import { setUsers } from "./redux/store";
 
 export default function GoogleSignIn(props){
 
-  
+  const dispatch = useDispatch();
   const {user, setUser, setIsLoggedIn}   = props;
 
   useEffect(()=>{
@@ -26,6 +28,7 @@ export default function GoogleSignIn(props){
     var userObject = jwtDecode(response.credential);
     console.log(userObject);
     setUser(userObject);
+    dispatch(setUsers(userObject));
     setIsLoggedIn(true);
     document.getElementById("signInDiv").hidden = true;
 

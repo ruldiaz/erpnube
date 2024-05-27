@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 
-export default function Product(props){
+export default function Product(props) {
+  console.log(props)
+  const {user} = props;
+  console.log(user)
   const [carrito, setCarrito] = useState([]);
-  const {details} = props;
+  const { details, clientId } = props; // Destructure clientId from props
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(carrito);
   }, [carrito]);
 
-  function handleIncrementClick(productId){
+  function handleIncrementClick(productId) {
     setCarrito(prevCarrito => 
       prevCarrito.map(item => 
         item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
@@ -16,7 +19,7 @@ export default function Product(props){
     );
   }
 
-  function handleDecrementClick(productId){
+  function handleDecrementClick(productId) {
     setCarrito(prevCarrito => 
       prevCarrito.map(item => 
         item.id === productId && item.quantity > 0 ? { ...item, quantity: item.quantity - 1 } : item
@@ -24,7 +27,7 @@ export default function Product(props){
     );
   }
 
-  function handleAddCarrito(e){
+  function handleAddCarrito(e) {
     const selectedProduct = details.find((product) => product.titulo === e.target.value);
     if (selectedProduct) {
       setCarrito(prevCarrito => [
@@ -34,29 +37,45 @@ export default function Product(props){
     }
   }
 
-  function handleSale(){
-    // Assuming `apiUrl` is your backend endpoint
-    const apiUrl = 'http://localhost:3001/update-inventory';
-    carrito.forEach(item => {
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+  function handleSale() {
+    if (!clientId) {
+      alert('Please select a client before making a sale.');
+      return;
+    }
+  
+    if (!user) {
+      alert('User information not available. Unable to make the sale.');
+      return;
+    }
+  
+    const apiUrl = 'http://localhost:3001/make-sale';
+    
+    fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        clientId: clientId,
+        userId: user[0].id,
+        products: carrito.map(item => ({
           productId: item.id,
-          quantity: item.quantity
-        })
+          quantity: item.quantity,
+          price: item.precio,
+        }))
       })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      // Handle successful sale
+    })
+    .catch((error) => {
+      console.error('Error:', error);
     });
   }
+  
+  
 
   return (
     <>

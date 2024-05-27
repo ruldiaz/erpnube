@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
+
+
 export default function Login(props){
+
 
   const {user, setUser, isLoggedIn, setIsLoggedIn} = props;
   
@@ -28,6 +31,7 @@ export default function Login(props){
       console.log(data);
       if(data.token){
         setUser(data)
+        
         console.log(user)
         setIsLoggedIn(true);
       }

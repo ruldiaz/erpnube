@@ -1,45 +1,42 @@
-const { Sale } = require('../db');
+const { Sale, SaleProduct, Inventory } = require('../db'); // Adjust the path as necessary
 
-// create sale handler
-const postSaleHandler = ('/', async (req, res)=>{
-  console.log(req.body);
+const postSaleHandler = ('/make-sale', async (req, res) => {
+  const { clientId, userId, products } = req.body;
+
   try {
-    let {
-      fecha,
-      razon_social,
-      data,
-      clientId,
-      userId,
-      total
-    } = req.body;
+    const sale = await Sale.create({ clientId, userId, totalAmount: 0 });
+    
+    let totalAmount = 0;
 
-    let saleCreated = await Sale.create({
-      fecha,
-      razon_social,
-      data,
-      clientId,
-      userId,
-      total
-    });
+    for (const product of products) {
+      const inventory = await Inventory.findOne({ where: { ProductId: product.productId } });
+      
+      if (inventory && inventory.inventario_actual >= product.quantity) {
+        await SaleProduct.create({
+          saleId: sale.id,
+          productId: product.productId,
+          quantity: product.quantity,
+          price: product.price
+        });
 
-    res.status(201).send(saleCreated);
+        inventory.inventario_actual -= product.quantity;
+        await inventory.save();
+        
+        totalAmount += product.quantity * product.price;
+      } else {
+        return res.status(400).json({ message: `Insufficient inventory for product ${product.productId}` });
+      }
+    }
+
+    sale.totalAmount = totalAmount;
+    await sale.save();
+
+    res.json({ message: 'Sale completed successfully', sale });
   } catch (error) {
-    res.status(500).json({error: error.message});
-  }
-});
-
-// read all sales
-const getSaleHandler = ('/', async (req, res)=>{
-  try {
-    const allSales = await Sale.findAll();
-    res.status(201).json(allSales);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({error: error.message});
+    res.status(500).json({ message: 'Server error', error });
   }
 });
 
 module.exports = {
-  postSaleHandler,
-  getSaleHandler
-}
+  postSaleHandler
+};

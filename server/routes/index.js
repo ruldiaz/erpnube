@@ -37,8 +37,8 @@ router.put('/client/:id', updateClientHandler);
 router.delete('/client/:id', deleteClientHandler);
 
 // Sale routes
-router.post('/sales', postSaleHandler);
-router.get('/sales', getSaleHandler);
+router.post('/make-sale', postSaleHandler);
+//router.get('/sales', getSaleHandler);
 
 // inventory
 router.post('/update-inventory', postInventoryHandler);

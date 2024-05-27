@@ -16,15 +16,15 @@ module.exports = (sequelize) => {
       type: DataTypes.UUID,
       allowNull: false,
     },
-    precio: {
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    price: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    data: {
-      type: DataTypes.JSON,
-      allowNull: false,
-    }
-  },{
+  }, {
     timestamps: false,
-  })
-}
+  });
+};
