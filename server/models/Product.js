@@ -1,9 +1,7 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
-  // defino el modelo
-  sequelize.define('product', {
+  const Product = sequelize.define('Product', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -45,7 +43,27 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: 0
     }
-  },{
-    timestamps: false
+  }, {
+    timestamps: false,
+    hooks: {
+      afterCreate: async (product, options) => {
+        const { Inventory } = sequelize.models;
+        console.log('Creating Inventory for Product:', product.id); // Logging for debugging
+        try {
+          await Inventory.create({
+            ProductId: product.id,
+            inventario_actual: product.stock,
+            codigo: product.codigo,
+            titulo: product.titulo,
+            unidad: product.unidad
+          }, { transaction: options.transaction });
+          console.log('Inventory created successfully'); // Logging for debugging
+        } catch (error) {
+          console.error('Failed to create Inventory:', error); // Logging for debugging
+        }
+      }
+    }
   });
+
+  return Product;
 };
