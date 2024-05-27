@@ -10,6 +10,7 @@ const { validarJWT } = require('../middlewares/validarJWT');
 const { isAdminRole } = require('../middlewares/validarRoles');
 const { postClientHandler, getClientHandler, updateClientHandler, deleteClientHandler } = require('../handlers/clientHandler');
 const { postSaleHandler, getSaleHandler } = require('../handlers/saleHandler');
+const { postInventoryHandler } = require('../handlers/inventoryHandler');
 
 
 const router = Router();
@@ -38,6 +39,9 @@ router.delete('/client/:id', deleteClientHandler);
 // Sale routes
 router.post('/sales', postSaleHandler);
 router.get('/sales', getSaleHandler);
+
+// inventory
+router.post('/update-inventory', postInventoryHandler);
 
 // Product routes
 
