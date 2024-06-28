@@ -103,9 +103,9 @@ export default function Product(props) {
               <td>{item.unidad}</td>
               <td>{item.titulo}</td>
               <td>
-                <button onClick={() => handleIncrementClick(item.id)}>Add 1</button>
-                <button onClick={() => handleDecrementClick(item.id)}>Sub 1</button>
-                {item.quantity}
+                <button className="px-4" onClick={() => handleIncrementClick(item.id)}>Add 1</button>
+                <button className="px-4" onClick={() => handleDecrementClick(item.id)}>Sub 1</button>
+                <span className="px-4">{item.quantity}</span>
               </td>
               <td>{item.precio}</td>
               <td>{item.precio * item.quantity}</td>
