@@ -11,6 +11,7 @@ const { isAdminRole } = require('../middlewares/validarRoles');
 const { postClientHandler, getClientHandler, updateClientHandler, deleteClientHandler } = require('../handlers/clientHandler');
 const { postSaleHandler, getSaleHandler } = require('../handlers/saleHandler');
 const { postInventoryHandler } = require('../handlers/inventoryHandler');
+const { postSupplierHandler, getSupplierHandler, updateSupplierHandler, deleteSupplierHandler } = require('../handlers/supplierHandler');
 
 
 const router = Router();
@@ -35,6 +36,12 @@ router.post('/client', postClientHandler);
 router.get('/client', getClientHandler);
 router.put('/client/:id', updateClientHandler);
 router.delete('/client/:id', deleteClientHandler);
+
+// Supplier routes
+router.post('/supplier', postSupplierHandler);
+router.get('/supplier', getSupplierHandler);
+router.put('/supplier/:id', updateSupplierHandler);
+router.delete('/supplier/:id', deleteSupplierHandler);
 
 // Sale routes
 router.post('/make-sale', postSaleHandler);

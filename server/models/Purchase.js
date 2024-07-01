@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       primaryKey: true,
       allowNull: false,
     },
-    clientId: {
+    supplierId: {
       type: DataTypes.UUID,
       allowNull: false,
     },
