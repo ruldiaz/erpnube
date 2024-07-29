@@ -15,6 +15,7 @@ import EditClients from './EditClients';
 import Sales from './Sales';
 import Suppliers from './Suppliers';
 import AddSuppliers from './AddSuppliers';
+import Purchases from './Purchases';
 
 function getClassName({isActive}){
   if(isActive){
@@ -61,6 +62,9 @@ function Home(){
                     <NavLink className={getClassName} to="/suppliers">Suppliers</NavLink>
                   </li>
                   <li>
+                    <NavLink className={getClassName} to="/purchases">Purchases</NavLink>
+                  </li>
+                  <li>
                     <NavLink className={getClassName} to="/clients">Clients</NavLink>
                   </li>
                   <li>
@@ -88,6 +92,7 @@ function Home(){
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/suppliers" element={<Suppliers />} />
+                    <Route path="/purchases" element={<Purchases />} />
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/sales" element={<Sales />} />
                     <Route path="/users" element={<Users />} />
